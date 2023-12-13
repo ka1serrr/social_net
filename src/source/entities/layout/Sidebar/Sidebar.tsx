@@ -9,24 +9,24 @@ export const Sidebar = () => {
   } = links;
 
   return (
-    <aside className='flex items-center flex-col justify-between'>
-      <Image src='/logo.svg' alt='icon' width={50} height={50} className='cursor-pointer' />
-      <div>
-        <Link href={friends}>
+    <div className='border-r border-white-borders flex flex-col items-center gap-[50px] p-2'>
+      <Image src='/logo.svg' alt='icon' width={40} height={40} priority className='cursor-pointer' />
+      <div className='flex flex-col gap-4'>
+        <Link href={friends} className='hover:scale-105 transition duration-150'>
           <BookUser />
         </Link>
-        <Link href={users}>
+        <Link href={users} className='hover:scale-105 transition duration-150'>
           <Users2 />
         </Link>
-        <Link href={chats}>
+        <Link href={chats} className='hover:scale-105 transition duration-150'>
           <MessageCircle />
         </Link>
-        <Link href={settings}>
+        <Link href={settings} className='hover:scale-105 transition duration-150'>
           <Settings />
         </Link>
       </div>
 
-      <Sun />
-    </aside>
+      <Sun className='hover:scale-105 transition duration-150 cursor-pointer' />
+    </div>
   );
 };
