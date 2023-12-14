@@ -15,6 +15,11 @@ const config: Config = {
       },
       colors: {
         "white-borders": "rgba(255, 255, 255, 0.1)",
+        white: "#efeff3",
+        "custom-gray": "#7C7275",
+      },
+      padding: {
+        layout: "1rem",
       },
     },
   },

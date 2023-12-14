@@ -5,7 +5,7 @@ export const LayoutWrapper = ({ children }: PropsWithChildren) => {
   return (
     <main className='flex'>
       <Sidebar />
-      <section>{children}</section>
+      <section className='w-full'>{children}</section>
     </main>
   );
 };

@@ -2,7 +2,7 @@ class Links {
   linksSideBar = {
     friends: "/friends",
     users: "/users",
-    chats: "/chats",
+    chats: "/",
     settings: "/settings",
   };
 }

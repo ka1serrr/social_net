@@ -21,6 +21,8 @@
     "paths": {
       "@/entities": ["./src/source/entities/index.ts"],
       "@/app/*": ["./src/source/app/*"],
+      "@/shared": ["./src/source/shared/index.ts"],
+      "@/features/*": ["./src/source/features/*"],
       "@/*": ["./src/*"],
     }
   },
