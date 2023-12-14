@@ -3,12 +3,12 @@ import { Chat, ChatList, CurrentUser } from "@/features/Chat";
 export default function ChatsPage() {
   return (
     <div
-      className='grid'
+      className='grid h-full'
       style={{
         gridTemplateColumns: ".7fr 3fr",
       }}
     >
-      <div>
+      <div className='border-r border-white-borders'>
         <CurrentUser />
         <ChatList />
       </div>

@@ -23,6 +23,7 @@
       "@/app/*": ["./src/source/app/*"],
       "@/shared": ["./src/source/shared/index.ts"],
       "@/features/*": ["./src/source/features/*"],
+      "@/widgets/*": ["./src/source/widgets/*"],
       "@/*": ["./src/*"],
     }
   },
