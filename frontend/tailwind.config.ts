@@ -17,6 +17,7 @@ const config: Config = {
         "white-borders": "rgba(255, 255, 255, 0.1)",
         white: "#efeff3",
         "custom-gray": "#7C7275",
+        "purple-primary": "#6F3AFF",
       },
       padding: {
         layout: "1rem",

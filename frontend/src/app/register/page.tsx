@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { NO_INDEX_PAGE } from "@/shared";
-import { Auth } from "@/widgets/Auth";
+import { AuthForm } from "@/features/Auth";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
-  return <Auth type='register' />;
+  return <AuthForm type='Register' />;
 }
