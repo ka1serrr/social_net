@@ -446,7 +446,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -471,6 +470,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     confirmed: Attribute.Boolean & Attribute.DefaultTo<false>;
     blocked: Attribute.Boolean & Attribute.DefaultTo<false>;
     role: Attribute.Relation<"plugin::users-permissions.user", "manyToOne", "plugin::users-permissions.role">;
+    avatar: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<"plugin::users-permissions.user", "oneToOne", "admin::user"> & Attribute.Private;

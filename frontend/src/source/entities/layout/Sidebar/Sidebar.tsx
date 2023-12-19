@@ -1,5 +1,4 @@
 "use client";
-import { links } from "@/app/config";
 import { Sun } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,10 +7,6 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 export const Sidebar = () => {
-  const {
-    linksSideBar: { friends, users, chats, settings },
-  } = links;
-
   const pathname = usePathname();
 
   return (
@@ -20,6 +15,7 @@ export const Sidebar = () => {
       <div className='flex flex-col gap-[24px] md:gap-6'>
         {NAVIGATION.map((item) => (
           <Link
+            key={item.url}
             href={item.url}
             className={clsx("hover:scale-105 transition duration-150 text-custom-gray hover:text-white", {
               "text-white": pathname === item.url,
