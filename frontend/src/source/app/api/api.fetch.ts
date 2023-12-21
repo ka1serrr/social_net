@@ -12,7 +12,7 @@ type Fetch = Query & {
 };
 
 type Post = Query & {
-  body?: Record<string, any>;
+  body: Record<string, any>;
 };
 
 class FetchClient {

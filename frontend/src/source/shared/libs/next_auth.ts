@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { AuthFormState } from "@/shared";
+import type { AuthFormState, User } from "@/shared";
 import { $fecth } from "@/app/api";
 import { apiUrls } from "@/app/config";
 
@@ -9,19 +9,21 @@ export const nextOptions = NextAuth({
     Credentials({
       name: "Credentials",
       credentials: {
-        username: {
+        email: {
           type: "text",
         },
         password: {
           type: "password",
         },
       },
+      // @ts-ignore
       async authorize(credentials) {
         const { email, password } = credentials as unknown as AuthFormState;
-        const data = await $fecth.get({ path: `${apiUrls}${email}` });
+        if (!credentials?.password || !credentials.email) return null;
 
+        const data = await $fecth.post<User[]>({ path: `${apiUrls.authorize}${email}`, body: { email, password } });
 
-        return data
+        return data;
         // if (!user) {
         //   const { userCreate } = await grafbase.request(CreateUserByUsername, {
         //     username,
@@ -44,4 +46,8 @@ export const nextOptions = NextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  secret: "1353145135143",
 });
