@@ -6,7 +6,10 @@ class Links {
     settings: "/settings",
   };
   apiUrls = {
+    mainApi: "http://localhost:1337/api",
     authorize: "/users?filters[email][$eq]=",
+    auth: "/auth/local/",
+    register: `/auth/local/register`,
   };
 }
 

@@ -1,3 +1,5 @@
+import { apiUrls } from "@/app/config";
+
 type DefaultHeaders = Record<string, string>;
 
 type Query = {
@@ -16,7 +18,7 @@ type Post = Query & {
 };
 
 class FetchClient {
-  private API_URL = "http://localhost:1337/api";
+  private API_URL = apiUrls.mainApi;
 
   private async fetch<T>({ path, headers, isAuth, body, method }: Fetch) {
     const url = `${this.API_URL}/${path}}`;

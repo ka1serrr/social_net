@@ -12,6 +12,9 @@ export const nextOptions = NextAuth({
         email: {
           type: "text",
         },
+        username: {
+          type: "text",
+        },
         password: {
           type: "password",
         },
@@ -21,9 +24,11 @@ export const nextOptions = NextAuth({
         const { email, password } = credentials as unknown as AuthFormState;
         if (!credentials?.password || !credentials.email) return null;
 
-        const data = await $fecth.post<User[]>({ path: `${apiUrls.authorize}${email}`, body: { email, password } });
+        const user = await $fecth.post<User[]>({ path: `${apiUrls.auth}`, body: { identifier: email, password } });
 
-        return data;
+        if (!user) return null;
+
+        return user;
         // if (!user) {
         //   const { userCreate } = await grafbase.request(CreateUserByUsername, {
         //     username,
