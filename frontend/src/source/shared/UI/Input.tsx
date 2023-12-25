@@ -6,7 +6,7 @@ import { FieldError } from "react-hook-form";
 import { cn } from "@/shared";
 
 type InputProps = {
-  error?: FieldError;
+  error?: string;
   Icon?: LucideIcon;
 };
 
@@ -36,9 +36,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
         />
       </div>
       {error && (
-        <div className='text-red-600 transition duration-300 text-sm bg-transparent mt-2 font-bold'>
-          {error?.message}
-        </div>
+        <div className='text-red-600 transition duration-300 text-sm bg-transparent mt-2 font-bold'>{error}</div>
       )}
     </label>
   );
