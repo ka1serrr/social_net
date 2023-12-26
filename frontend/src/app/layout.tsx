@@ -22,7 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={clsx(inter.className, "h-screen")}>
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <NextAuthProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </NextAuthProvider>
       </body>
     </html>
   );

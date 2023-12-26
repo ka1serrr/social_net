@@ -41,6 +41,7 @@ export const nextOptions = NextAuth({
 
         if (!user) return null;
 
+        console.log(user);
         return user;
       },
     }),

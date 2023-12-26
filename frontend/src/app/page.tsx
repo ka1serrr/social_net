@@ -3,21 +3,19 @@ import { Chat, ChatList, CurrentUser } from "@/features/Chat";
 
 export default function ChatsPage() {
   return (
-    <NextAuthProvider>
-      <div
-        className='grid h-full'
-        style={{
-          gridTemplateColumns: ".7fr 3fr",
-        }}
-      >
-        <div className='border-r border-white-borders'>
-          <CurrentUser />
-          <ChatList />
-        </div>
-        <div>
-          <Chat />
-        </div>
+    <div
+      className='grid h-full'
+      style={{
+        gridTemplateColumns: ".7fr 3fr",
+      }}
+    >
+      <div className='border-r border-white-borders'>
+        <CurrentUser />
+        <ChatList />
       </div>
-    </NextAuthProvider>
+      <div>
+        <Chat />
+      </div>
+    </div>
   );
 }
