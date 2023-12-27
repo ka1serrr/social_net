@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -11,10 +11,10 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/strapi": "4.15.5",
-    "@strapi/plugin-users-permissions": "4.15.5",
-    "@strapi/plugin-i18n": "4.15.5",
-    "@strapi/plugin-cloud": "4.15.5",
+    "@strapi/strapi": "4.16.2",
+    "@strapi/plugin-users-permissions": "4.16.2",
+    "@strapi/plugin-i18n": "4.16.2",
+    "@strapi/plugin-cloud": "4.16.2",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -25,7 +25,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "70c966ed-9dd3-43f4-885c-db53707412a6"
+    "uuid": "7273ee8a-41b9-4755-95e9-7d7fd975428b"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",

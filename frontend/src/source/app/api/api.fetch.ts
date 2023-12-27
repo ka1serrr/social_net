@@ -1,7 +1,5 @@
 import { apiUrls } from "@/app/config";
 
-type DefaultHeaders = Record<string, string>;
-
 type Query = {
   path: string;
   headers?: HeadersInit;

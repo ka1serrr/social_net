@@ -368,6 +368,75 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   };
 }
 
+export interface PluginContentReleasesRelease extends Schema.CollectionType {
+  collectionName: "strapi_releases";
+  info: {
+    singularName: "release";
+    pluralName: "releases";
+    displayName: "Release";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    "content-manager": {
+      visible: false;
+    };
+    "content-type-builder": {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    releasedAt: Attribute.DateTime;
+    actions: Attribute.Relation<
+      "plugin::content-releases.release",
+      "oneToMany",
+      "plugin::content-releases.release-action"
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<"plugin::content-releases.release", "oneToOne", "admin::user"> & Attribute.Private;
+    updatedBy: Attribute.Relation<"plugin::content-releases.release", "oneToOne", "admin::user"> & Attribute.Private;
+  };
+}
+
+export interface PluginContentReleasesReleaseAction extends Schema.CollectionType {
+  collectionName: "strapi_release_actions";
+  info: {
+    singularName: "release-action";
+    pluralName: "release-actions";
+    displayName: "Release Action";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    "content-manager": {
+      visible: false;
+    };
+    "content-type-builder": {
+      visible: false;
+    };
+  };
+  attributes: {
+    type: Attribute.Enumeration<["publish", "unpublish"]> & Attribute.Required;
+    entry: Attribute.Relation<"plugin::content-releases.release-action", "morphToOne">;
+    contentType: Attribute.String & Attribute.Required;
+    release: Attribute.Relation<
+      "plugin::content-releases.release-action",
+      "manyToOne",
+      "plugin::content-releases.release"
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<"plugin::content-releases.release-action", "oneToOne", "admin::user"> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<"plugin::content-releases.release-action", "oneToOne", "admin::user"> &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission extends Schema.CollectionType {
   collectionName: "up_permissions";
   info: {
@@ -446,6 +515,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
+    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -470,7 +540,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     confirmed: Attribute.Boolean & Attribute.DefaultTo<false>;
     blocked: Attribute.Boolean & Attribute.DefaultTo<false>;
     role: Attribute.Relation<"plugin::users-permissions.user", "manyToOne", "plugin::users-permissions.role">;
-    avatar: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<"plugin::users-permissions.user", "oneToOne", "admin::user"> & Attribute.Private;
@@ -524,6 +593,8 @@ declare module "@strapi/types" {
       "admin::transfer-token-permission": AdminTransferTokenPermission;
       "plugin::upload.file": PluginUploadFile;
       "plugin::upload.folder": PluginUploadFolder;
+      "plugin::content-releases.release": PluginContentReleasesRelease;
+      "plugin::content-releases.release-action": PluginContentReleasesReleaseAction;
       "plugin::users-permissions.permission": PluginUsersPermissionsPermission;
       "plugin::users-permissions.role": PluginUsersPermissionsRole;
       "plugin::users-permissions.user": PluginUsersPermissionsUser;

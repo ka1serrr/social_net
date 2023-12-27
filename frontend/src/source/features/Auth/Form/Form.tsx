@@ -1,12 +1,12 @@
 "use client";
 
 import { AuthFormState, Button, Input, randomUsername } from "@/shared";
-import { validatationSchema } from "./validation.schema";
+import { validatationSchema } from "@/features/Auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AtSign, KeyRound } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 type Props = {
   type: "Login" | "Register";
@@ -22,7 +22,11 @@ export const AuthForm = ({ type }: Props) => {
     resolver: yupResolver(validatationSchema),
   });
 
-  const session = useSession();
+  const { status, data   } = useSession();
+
+  // if (status === 'authenticated') {
+  //   redirect('/')
+  // }
 
   const onSubmit: SubmitHandler<AuthFormState> = async (data) => {
     if (type === "Login") {
@@ -42,7 +46,7 @@ export const AuthForm = ({ type }: Props) => {
   };
 
   return (
-    <div className='flex w-full h-full'>
+    <div className='flex flec-col w-full h-screen items-center justify-center'>
       <form onSubmit={handleSubmit(onSubmit)} className='m-auto flex flex-col items-center w-80 gap-y-4'>
         <h1 className='text-4xl uppercase font-bold text-white'>{type}</h1>
         <Input

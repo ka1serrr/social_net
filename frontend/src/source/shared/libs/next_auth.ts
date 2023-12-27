@@ -51,10 +51,15 @@ export const nextOptions = NextAuth({
   },
   callbacks: {
     async session({ session, token, user }) {
+      if (token) {
+        // @ts-ignore
+        session.user = token.data
+      }
       return session;
     },
-  },
-  pages: {
-    signIn: "/login",
+    async jwt({token, user}) {
+      if (user) token.data = user;
+      return token
+    }
   },
 });
