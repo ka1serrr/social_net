@@ -6,7 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AtSign, KeyRound } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 type Props = {
   type: "Login" | "Register";
@@ -22,26 +24,50 @@ export const AuthForm = ({ type }: Props) => {
     resolver: yupResolver(validatationSchema),
   });
 
-  const { status, data   } = useSession();
+  const router = useRouter();
 
-  // if (status === 'authenticated') {
-  //   redirect('/')
-  // }
+  const { status, data } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status]);
 
   const onSubmit: SubmitHandler<AuthFormState> = async (data) => {
     if (type === "Login") {
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         redirect: false,
         email: data.email,
         password: data.password,
       });
+
+      if (!res?.ok) {
+        if (res?.status === 401) {
+          toast.error("Wrong email or password");
+          return;
+        }
+        toast.error("An error occurred");
+        return;
+      }
+
+      await router.push("/");
+      return;
     } else {
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         redirect: false,
         //! нужен username, т. к. strapi не хочет регестрировать без него.
         username: randomUsername(),
         ...data,
       });
+
+      if (!res?.ok) {
+        toast.error("Sorry! An error occurred");
+        return;
+      }
+
+      await router.push("/");
+      return;
     }
   };
 

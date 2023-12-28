@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import type { AuthFormState, User } from "@/shared";
 import { $fecth } from "@/app/api";
 import { apiUrls } from "@/app/config";
+import toast from "react-hot-toast";
 
 export const nextOptions = NextAuth({
   providers: [
@@ -25,24 +26,31 @@ export const nextOptions = NextAuth({
 
         // ! Если есть username, то это регистрация, если нет - то авторизация.
         if (credentials?.username) {
-          const user = await $fecth.post<{ user: User[]; jwt: string }>({
-            path: `${apiUrls.register}`,
-            body: { email: credentials?.email, username: credentials?.username, password: credentials?.password },
-          });
-
-          console.log(`reigster: ${user}`);
-          return user;
+          try {
+            const user = await $fecth.post<{ user: User[]; jwt: string }>({
+              path: `${apiUrls.register}`,
+              body: { email: credentials?.email, username: credentials?.username, password: credentials?.password },
+            });
+            return user;
+          } catch (e) {
+            return Promise.reject(new Error((e as TypeError).message));
+          }
         }
 
-        const user = await $fecth.post<{ user: User[]; jwt: string }>({
-          path: apiUrls.auth,
-          body: { identifier: credentials?.email, password: credentials?.password },
-        });
+        try {
+          const user = await $fecth.post<{ user: User[]; jwt: string }>({
+            path: apiUrls.auth,
+            body: { identifier: credentials?.email, password: credentials?.password },
+          });
 
-        if (!user) return null;
+          if (!user) {
+            return Promise.reject(new Error("Wrong credentials"));
+          }
 
-        console.log(user);
-        return user;
+          return user;
+        } catch (e) {
+          return Promise.reject(new Error((e as TypeError).message));
+        }
       },
     }),
   ],
@@ -53,13 +61,13 @@ export const nextOptions = NextAuth({
     async session({ session, token, user }) {
       if (token) {
         // @ts-ignore
-        session.user = token.data
+        session.user = token.data;
       }
       return session;
     },
-    async jwt({token, user}) {
+    async jwt({ token, user }) {
       if (user) token.data = user;
-      return token
-    }
+      return token;
+    },
   },
 });

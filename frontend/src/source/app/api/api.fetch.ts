@@ -1,4 +1,5 @@
 import { apiUrls } from "@/app/config";
+import toast from "react-hot-toast";
 
 type Query = {
   path: string;

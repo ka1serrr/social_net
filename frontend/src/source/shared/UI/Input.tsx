@@ -19,7 +19,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
 
   return (
     <label className='flex flex-col w-full group'>
-      <div className='flex'>
+      <div className='flex w-full'>
         {Icon && (
           <div className='mr-3'>
             <Icon className='text-[#585654] group-focus-within:text-white transition-colors duration-300 ease-linear' />
@@ -28,7 +28,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
         <input
           {...rest}
           className={cn(
-            "border-none autofill:bg-none bg-transparent outline-none placeholder:text-[#666463]",
+            "border-none autofill:bg-none bg-transparent outline-none placeholder:text-[#666463] w-full",
             className,
           )}
           type={initialType}
