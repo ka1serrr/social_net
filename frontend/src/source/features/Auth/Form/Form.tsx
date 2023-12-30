@@ -8,13 +8,15 @@ import { signIn, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   type: "Login" | "Register";
 };
 
 export const AuthForm = ({ type }: Props) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -35,6 +37,7 @@ export const AuthForm = ({ type }: Props) => {
   }, [status]);
 
   const onSubmit: SubmitHandler<AuthFormState> = async (data) => {
+    setIsLoading(true);
     if (type === "Login") {
       const res = await signIn("credentials", {
         redirect: false,
@@ -45,14 +48,13 @@ export const AuthForm = ({ type }: Props) => {
       if (!res?.ok) {
         if (res?.status === 401) {
           toast.error("Wrong email or password");
+          setIsLoading(false);
           return;
         }
         toast.error("An error occurred");
+        setIsLoading(false);
         return;
       }
-
-      await router.push("/");
-      return;
     } else {
       const res = await signIn("credentials", {
         redirect: false,
@@ -63,12 +65,12 @@ export const AuthForm = ({ type }: Props) => {
 
       if (!res?.ok) {
         toast.error("Sorry! An error occurred");
+        setIsLoading(false);
         return;
       }
-
-      await router.push("/");
-      return;
     }
+    setIsLoading(false);
+    await router.push("/");
   };
 
   return (
@@ -88,7 +90,7 @@ export const AuthForm = ({ type }: Props) => {
           Icon={KeyRound}
           error={errors?.password?.message}
         />
-        <Button type='submit' className='w-full'>
+        <Button isLoading={isLoading} disabled={isLoading} type='submit' className='w-full'>
           {type}
         </Button>
       </form>

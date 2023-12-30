@@ -4,16 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { NAVIGATION } from "./sidebar.data";
 import clsx from "clsx";
-import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 export const Sidebar = () => {
   const pathname = usePathname();
   const { status } = useSession();
-
-  if (status !== "authenticated") {
-    return null;
-  }
 
   return (
     <div className='border-r border-white-borders flex flex-col items-center gap-[50px] p-layout h-screen'>

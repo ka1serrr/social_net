@@ -1,4 +1,3 @@
-import { NextAuthProvider } from "@/app/providers/NextAuthProvider";
 import { Chat, ChatList, CurrentUser } from "@/features/Chat";
 
 export default function ChatsPage() {

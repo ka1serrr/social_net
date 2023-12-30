@@ -1,5 +1,4 @@
 import { apiUrls } from "@/app/config";
-import toast from "react-hot-toast";
 
 type Query = {
   path: string;
@@ -34,8 +33,7 @@ class FetchClient {
 
       const data = await response.json();
       if (!response.ok) {
-        console.error("Fetch error: ", data);
-        throw new Error("Fetch error: " + JSON.stringify(data));
+        throw new Error("Fetch error: " + JSON.stringify(data.error));
       }
 
       return data;
