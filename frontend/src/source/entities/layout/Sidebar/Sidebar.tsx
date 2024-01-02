@@ -1,15 +1,18 @@
 "use client";
+
 import { Sun } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { NAVIGATION } from "./sidebar.data";
 import clsx from "clsx";
-import { usePathname, useRouter } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import { useAuth } from "@/shared";
 
 export const Sidebar = () => {
   const pathname = usePathname();
-  const { status } = useSession();
+  const { status } = useAuth();
+
+  if (status === "unauthenticated") return null;
 
   return (
     <div className='border-r border-white-borders flex flex-col items-center gap-[50px] p-layout h-screen'>

@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthFormState, Button, Input, randomUsername } from "@/shared";
+import { AuthFormState, Button, Input, randomUsername, UserJwt } from "@/shared";
 import { validatationSchema } from "@/features/Auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AtSign, KeyRound } from "lucide-react";
@@ -8,7 +8,9 @@ import { signIn, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
+import { pagesLinks } from "@/app/config";
 
 type Props = {
   type: "Login" | "Register";
@@ -28,14 +30,12 @@ export const AuthForm = ({ type }: Props) => {
 
   const router = useRouter();
 
-  const { status, data } = useSession();
+  const { status } = useSession();
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status]);
-
+  // if (status === "authenticated") {
+  //   router.push("/");
+  //   return;
+  // }
   const onSubmit: SubmitHandler<AuthFormState> = async (data) => {
     setIsLoading(true);
     if (type === "Login") {
@@ -94,6 +94,15 @@ export const AuthForm = ({ type }: Props) => {
           {type}
         </Button>
       </form>
+      {type === "Login" ? (
+        <span className='block text-center text-base'>
+          If you don't have an account you can <Link href={pagesLinks.register}>Sign Up</Link>
+        </span>
+      ) : (
+        <span className='block text-center text-base'>
+          If you already have an account you can <Link href={pagesLinks.login}>Sign In</Link>
+        </span>
+      )}
     </div>
   );
 };

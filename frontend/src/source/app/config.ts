@@ -5,6 +5,14 @@ class Links {
     chats: "/",
     settings: "/settings",
   };
+  pagesLinks = {
+    friends: "/friends",
+    users: "/users",
+    chats: "/",
+    settings: "/settings",
+    register: "/register",
+    login: "/login",
+  };
   apiUrls = {
     mainApi: "http://localhost:1337/api",
     authorize: "/users?filters[email][$eq]=",
@@ -19,5 +27,5 @@ class Links {
 }
 
 const links = new Links();
-export const { apiUrls, formMessages } = links;
+export const { apiUrls, formMessages, pagesLinks } = links;
 export { links };

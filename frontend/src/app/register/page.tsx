@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { NO_INDEX_PAGE } from "@/shared";
 import { AuthForm } from "@/features/Auth";
+import { IsSignedInProvider } from "@/app/providers/IsSignedInProvider";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
-  return <AuthForm type='Register' />;
+  return (
+    <IsSignedInProvider>
+      <AuthForm type='Register' />
+    </IsSignedInProvider>
+  );
 }

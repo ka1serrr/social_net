@@ -1,11 +1,12 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import type { AuthFormState, User } from "@/shared";
+import type { AuthFormState, User, UserJwt } from "@/shared";
 import { $fecth } from "@/app/api";
 import { apiUrls } from "@/app/config";
 import toast from "react-hot-toast";
+import { JWT } from "next-auth/jwt";
 
-export const nextOptions = NextAuth({
+export const nextOptions: AuthOptions = NextAuth({
   providers: [
     Credentials({
       name: "Credentials",
@@ -27,18 +28,23 @@ export const nextOptions = NextAuth({
         // ! Если есть username, то это регистрация, если нет - то авторизация.
         if (credentials?.username) {
           try {
-            const user = await $fecth.post<{ user: User[]; jwt: string }>({
+            const user = await $fecth.post<UserJwt>({
               path: `${apiUrls.register}`,
               body: { email: credentials?.email, username: credentials?.username, password: credentials?.password },
             });
-            return user;
+            return {
+              jwt: user.jwt,
+              username: user.user.username,
+              email: user.user.email,
+              avatar: user.user.avatar,
+            };
           } catch (e) {
             return Promise.reject(new Error((e as TypeError).message));
           }
         }
 
         try {
-          const user = await $fecth.post<{ user: User[]; jwt: string }>({
+          const user = await $fecth.post<UserJwt>({
             path: apiUrls.auth,
             body: { identifier: credentials?.email, password: credentials?.password },
           });
@@ -47,7 +53,12 @@ export const nextOptions = NextAuth({
             return Promise.reject(new Error("Wrong credentials"));
           }
 
-          return user;
+          return {
+            jwt: user.jwt,
+            username: user.user.username,
+            email: user.user.email,
+            avatar: user.user.avatar,
+          } as unknown as User;
         } catch (e) {
           return Promise.reject(new Error((e as TypeError).message));
         }
@@ -58,6 +69,14 @@ export const nextOptions = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
+    // @ts-ignore
+    async jwt({ token, user }: { token: JWT; user?: User }) {
+      if (user?.email) {
+        return { ...token, ...user };
+      }
+
+      return { ...token, ...user };
+    },
     async session({ session, token, user }) {
       if (token) {
         // @ts-ignore
@@ -65,9 +84,8 @@ export const nextOptions = NextAuth({
       }
       return session;
     },
-    async jwt({ token, user }) {
-      if (user) token.data = user;
-      return token;
-    },
+  },
+  pages: {
+    signIn: "/login",
   },
 });

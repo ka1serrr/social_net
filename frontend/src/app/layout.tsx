@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { LayoutWrapper } from "@/entities";
 import clsx from "clsx";
-import { NextAuthProvider } from "@/app/providers/NextAuthProvider";
+import { getServerSession } from "next-auth";
+import { nextOptions } from "@/shared";
+import { MainProvider } from "@/app/providers/MainProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +19,15 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession(nextOptions);
+
   return (
     <html lang='en'>
       <body className={clsx(inter.className, "h-screen")}>
-        <NextAuthProvider>
+        <MainProvider session={session}>
           <LayoutWrapper>{children}</LayoutWrapper>
-        </NextAuthProvider>
+        </MainProvider>
       </body>
     </html>
   );
