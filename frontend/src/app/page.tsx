@@ -1,5 +1,6 @@
-import { Chat, ChatList, CurrentUser } from "@/features/Chat";
+import { Chat, CurrentUser } from "@/features/Chat";
 import { AuthProvider } from "@/app/providers/AuthProvider";
+import { ChatList } from "@/widgets/ChatList";
 
 export default function ChatsPage() {
   return (
@@ -7,7 +8,7 @@ export default function ChatsPage() {
       <div
         className='grid h-full'
         style={{
-          gridTemplateColumns: ".7fr 3fr",
+          gridTemplateColumns: "1fr 3fr",
         }}
       >
         <div className='border-r border-white-borders'>

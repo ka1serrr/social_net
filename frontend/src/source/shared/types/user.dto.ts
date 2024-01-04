@@ -4,6 +4,7 @@ export type User = {
   confirmed: boolean;
   avatar?: string;
   role: string;
+  description?: string;
 };
 
 export type UserJwt = {

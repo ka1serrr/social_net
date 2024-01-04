@@ -1,9 +1,13 @@
 "use client";
 import { Session } from "next-auth";
-import { SessionProvider, signOut, useSession } from "next-auth/react";
-import { PropsWithChildren, ReactNode, useEffect } from "react";
-import { useAuth } from "@/shared";
+import { SessionProvider } from "next-auth/react";
+import { ReactNode } from "react";
+import { ReactQueryProvider } from "@/app/providers";
 
 export const MainProvider = ({ children, session }: { children: ReactNode; session: Session | null }) => {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+  return (
+    <SessionProvider session={session}>
+      <ReactQueryProvider>{children}</ReactQueryProvider>
+    </SessionProvider>
+  );
 };

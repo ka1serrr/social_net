@@ -32,10 +32,10 @@ export const AuthForm = ({ type }: Props) => {
 
   const { status } = useSession();
 
-  // if (status === "authenticated") {
-  //   router.push("/");
-  //   return;
-  // }
+  if (status === "authenticated") {
+    router.push("/");
+    return;
+  }
   const onSubmit: SubmitHandler<AuthFormState> = async (data) => {
     setIsLoading(true);
     if (type === "Login") {
@@ -74,8 +74,8 @@ export const AuthForm = ({ type }: Props) => {
   };
 
   return (
-    <div className='flex flec-col w-full h-screen items-center justify-center'>
-      <form onSubmit={handleSubmit(onSubmit)} className='m-auto flex flex-col items-center w-80 gap-y-4'>
+    <div className='flex flex-col w-full h-screen items-center justify-center'>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center w-80 gap-y-4'>
         <h1 className='text-4xl uppercase font-bold text-white'>{type}</h1>
         <Input
           {...register("email", { required: true })}
@@ -95,12 +95,24 @@ export const AuthForm = ({ type }: Props) => {
         </Button>
       </form>
       {type === "Login" ? (
-        <span className='block text-center text-base'>
-          If you don't have an account you can <Link href={pagesLinks.register}>Sign Up</Link>
+        <span className='block text-center text-base mt-4 text-white'>
+          If you don't have an account you can{" "}
+          <Link
+            className='text-purple-primary text-opacity-90 hover:text-opacity-100 transition-opacity duration-100'
+            href={pagesLinks.register}
+          >
+            Sign Up
+          </Link>
         </span>
       ) : (
-        <span className='block text-center text-base'>
-          If you already have an account you can <Link href={pagesLinks.login}>Sign In</Link>
+        <span className='block text-center text-base mt-4 text-white'>
+          If you already have an account you can{" "}
+          <Link
+            className='text-purple-primary text-opacity-90 hover:text-opacity-100 transition-opacity duration-100'
+            href={pagesLinks.login}
+          >
+            Sign In
+          </Link>
         </span>
       )}
     </div>

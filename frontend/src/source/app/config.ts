@@ -15,9 +15,9 @@ class Links {
   };
   apiUrls = {
     mainApi: "http://localhost:1337/api",
-    authorize: "/users?filters[email][$eq]=",
     auth: "auth/local",
     register: `auth/local/register`,
+    getChats: "chats",
   };
   formMessages = {
     required: "This field is required",

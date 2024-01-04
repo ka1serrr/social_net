@@ -71,7 +71,7 @@ export const nextOptions: AuthOptions = NextAuth({
   callbacks: {
     // @ts-ignore
     async jwt({ token, user }: { token: JWT; user?: User }) {
-      if (user?.email) {
+      if (token?.jwt) {
         return { ...token, ...user };
       }
 
@@ -80,7 +80,7 @@ export const nextOptions: AuthOptions = NextAuth({
     async session({ session, token, user }) {
       if (token) {
         // @ts-ignore
-        session.user = token.data;
+        session.user = { ...token };
       }
       return session;
     },
