@@ -13,3 +13,7 @@ export type Chat = {
   messages: Message[];
   members: User[];
 };
+
+export type Chats = {
+  chats: Chat[] | undefined;
+};

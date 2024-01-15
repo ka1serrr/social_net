@@ -28,15 +28,17 @@ export const nextOptions: AuthOptions = NextAuth({
         // ! Если есть username, то это регистрация, если нет - то авторизация.
         if (credentials?.username) {
           try {
-            const user = await $fecth.post<UserJwt>({
+            const data = await $fecth.post<UserJwt>({
               path: `${apiUrls.register}`,
               body: { email: credentials?.email, username: credentials?.username, password: credentials?.password },
             });
             return {
-              jwt: user.jwt,
-              username: user.user.username,
-              email: user.user.email,
-              avatar: user.user.avatar,
+              jwt: data.user.jwt,
+              username: data.user.username,
+              email: data.user.email,
+              // avatar: data.user.avatar,
+              role: data.user.role,
+              id: data.user.id,
             };
           } catch (e) {
             return Promise.reject(new Error((e as TypeError).message));
@@ -44,20 +46,22 @@ export const nextOptions: AuthOptions = NextAuth({
         }
 
         try {
-          const user = await $fecth.post<UserJwt>({
+          const data = await $fecth.post<UserJwt>({
             path: apiUrls.auth,
-            body: { identifier: credentials?.email, password: credentials?.password },
+            body: { email: credentials?.email, password: credentials?.password },
           });
 
-          if (!user) {
+          if (!data) {
             return Promise.reject(new Error("Wrong credentials"));
           }
 
           return {
-            jwt: user.jwt,
-            username: user.user.username,
-            email: user.user.email,
-            avatar: user.user.avatar,
+            jwt: data.user.jwt,
+            username: data.user.username,
+            email: data.user.email,
+            // avatar: data.user.avatar,
+            role: data.user.role,
+            id: data.user.id,
           } as unknown as User;
         } catch (e) {
           return Promise.reject(new Error((e as TypeError).message));

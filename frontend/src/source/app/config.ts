@@ -14,9 +14,9 @@ class Links {
     login: "/login",
   };
   apiUrls = {
-    mainApi: "http://localhost:1337/api",
-    auth: "auth/local",
-    register: `auth/local/register`,
+    mainApi: "http://localhost:4000/api",
+    auth: "auth/login",
+    register: `auth/register`,
     getChats: "chats",
   };
   formMessages = {
