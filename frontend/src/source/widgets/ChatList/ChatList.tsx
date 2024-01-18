@@ -12,14 +12,12 @@ export const ChatList = () => {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["chats"],
     queryFn: () =>
-      $fecth.get<ResponseUser>({
+      $fecth.get<ResponseUser[]>({
         path: `chats?populate=members&populate[messages][populate][0]=author`,
         isAuth: true,
       }),
     enabled: isLoggedIn,
   });
-
-  console.log(data);
 
   return (
     <div className='h-full'>

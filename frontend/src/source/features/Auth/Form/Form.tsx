@@ -74,7 +74,7 @@ export const AuthForm = ({ type }: Props) => {
   };
 
   return (
-    <div className='flex flex-col w-full h-screen items-center justify-center'>
+    <div className='flex flex-col w-full h-svh items-center justify-center'>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center w-80 gap-y-4'>
         <h1 className='text-4xl uppercase font-bold text-white'>{type}</h1>
         <Input
