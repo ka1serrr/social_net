@@ -23,8 +23,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerSession(nextOptions);
 
   return (
-    <html lang='en'>
-      <body className={clsx(inter.className, "h-svh")}>
+    <html lang='en' className='h-full'>
+      <body className={clsx(inter.className, "min-h-full")}>
         <MainProvider session={session}>
           <LayoutWrapper>{children}</LayoutWrapper>
         </MainProvider>

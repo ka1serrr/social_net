@@ -6,7 +6,7 @@ class checkRole {
         if ("ADMIN" === role)
             return true;
         else {
-            throw new Error("Forbidden");
+            throw new Error("You do not have access");
         }
     }
 }

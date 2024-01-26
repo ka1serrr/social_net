@@ -36,7 +36,7 @@ class FetchClient {
         throw new Error("Fetch error: " + JSON.stringify(data.error));
       }
 
-      return data;
+      return data as T;
     } catch (e) {
       console.error("Fetch error: ", e);
       throw e;

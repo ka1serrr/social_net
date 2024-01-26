@@ -8,9 +8,11 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const authRoute_1 = require("./routes/authRoute");
 const config_1 = require("./config");
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 const port = process.env.PORT;
+app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 app.use(`${config_1.api.mainLink}/auth`, authRoute_1.router);
 app.listen(port, () => {

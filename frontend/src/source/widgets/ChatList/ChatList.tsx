@@ -4,8 +4,6 @@ import { Input, Loader, ResponseUser, useAuth } from "@/shared";
 import { Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { $fecth } from "@/app/api";
-import { apiUrls } from "@/app/config";
-import { ChatListItems } from "@/entities";
 
 export const ChatList = () => {
   const { data: user, isLoggedIn } = useAuth();

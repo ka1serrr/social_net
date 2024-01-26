@@ -3,6 +3,7 @@ export type Register = {
   username: string;
   password: string;
   jwt: string;
+  description: string;
 };
 
 export type Login = {

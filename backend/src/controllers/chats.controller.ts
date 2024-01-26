@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { authService } from "../services";
+import { UserWithRequest } from "../types";
 
 class ChatsController {
-  getChats = async (req: Request, res: Response) => {
+  getChats = async (req: UserWithRequest, res: Response) => {
     try {
-      const { username } = req.body;
+      const { username } = req.user;
       const { page, limit } = req.params;
       const chats = await authService.getChats(username, page, limit);
       res.status(200).json({

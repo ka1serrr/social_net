@@ -17,6 +17,7 @@ class Links {
     mainApi: "http://localhost:4000/api",
     auth: "auth/login",
     register: `auth/register`,
+    getUsers: "auth/users",
     getChats: "chats",
   };
   formMessages = {

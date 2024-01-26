@@ -1,4 +1,4 @@
-import { Chat, Message } from "@/source/shared";
+import { Chat, Message, Meta } from "@/source/shared";
 
 export type User = {
   id: number;
@@ -19,4 +19,11 @@ export type UserJwt = {
 export type ResponseUser = User & {
   chats: Chat[];
   messages: Message[];
+};
+
+export type AllUsers = {
+  status: boolean;
+  message: string;
+  data: User[];
+  meta: Meta;
 };

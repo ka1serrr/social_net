@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  web:
+#    Означает, что мы сначала ждём, пока запустится сервис api
+    depends_on:
+      - api
+    build: ./frontend
+    ports:
+      - "3000:3000"
+
+    environment:
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: R7fq/iEJhSM4ww46NR64dg
+#      говорим, что надо смотреть за каким-то файлами
+    develop:
+      watch:
+        - path: ./frontend/package.json
+          action: rebuild
+        - path: ./frontend/package-lock.json
+          action: rebuild
+        - path: ./frontend/next.config.js
+          action: rebuild
+        - path: ./frontend
+          target: /app
+          action: sync
+  api:
+    depends_on:
+      - db
+    build: "./backend"
+    ports: 
+      - "4000:4000"
+
+    environment:
+      - PORT=4000
+      - DATABASE_URL=postgresql://postgres:1111@localhost:5432/social_net_backend?schema=public
+      - JWT_SECRET=09f26e402586e2faa8da4c98a35f1b20d6b033c60
+    develop:
+      watch:
+        - path: ./backend/package.json
+          action: rebuild
+        - path: ./backend/package-lock.json
+          action: rebuild
+        - path: ./backend
+          target: /app
+          action: sync
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1111
+      - POSTGRES_DB=social_net_backend
+    ports:
+      - "5432:5432"
+    volumes:
+      - social_net_backend:/var/lib/postgresql/data
+volumes:
+  social_net_backend:
