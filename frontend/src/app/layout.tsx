@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang='en' className='h-full'>
-      <body className={clsx(inter.className, "min-h-full")}>
+      <body className={clsx(inter.className, "h-full")}>
         <MainProvider session={session}>
           <LayoutWrapper>{children}</LayoutWrapper>
         </MainProvider>

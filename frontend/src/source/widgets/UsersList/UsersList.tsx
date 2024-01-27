@@ -24,7 +24,9 @@ export const UsersList = () => {
             <Loader className='h-full' />
           </div>
         ) : users?.data ? (
-          <UsersListItems users={users?.data} />
+          <>
+            <UsersListItems users={users?.data} />
+          </>
         ) : null}
       </div>
     </div>

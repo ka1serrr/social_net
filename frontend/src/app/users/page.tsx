@@ -18,7 +18,7 @@ export default function UsersPage() {
           gridTemplateColumns: "1fr 3fr",
         }}
       >
-        <div className='border-r border-white-borders'>
+        <div className='border-r border-white-borders h-full overflow-auto'>
           <CurrentUser />
           <UsersList />
         </div>

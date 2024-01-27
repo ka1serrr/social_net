@@ -4,9 +4,9 @@ import { Toaster } from "react-hot-toast";
 
 export const LayoutWrapper = ({ children }: PropsWithChildren) => {
   return (
-    <main className='flex items-stretch'>
+    <main className='flex items-stretch h-screen'>
       <Sidebar />
-      <section className='w-full h-svh'>{children}</section>
+      <section className='w-full'>{children}</section>
       <Toaster position='top-center' />
     </main>
   );

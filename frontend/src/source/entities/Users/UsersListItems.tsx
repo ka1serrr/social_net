@@ -32,7 +32,7 @@ export const UsersListItems: FC<Props> = ({ users }) => {
   return (
     <>
       {users.map((user) => (
-        <UsersListItem {...user} />
+        <UsersListItem {...user} key={user.id} />
       ))}
     </>
   );
