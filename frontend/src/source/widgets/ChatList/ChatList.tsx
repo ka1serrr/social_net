@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, Loader, ResponseUser, useAuth } from "@/shared";
+import { Input, Loader, useAuth, User } from "@/shared";
 import { Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { $fecth } from "@/app/api";
@@ -10,7 +10,7 @@ export const ChatList = () => {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["chats"],
     queryFn: () =>
-      $fecth.get<ResponseUser[]>({
+      $fecth.get<User[]>({
         path: `chats?populate=members&populate[messages][populate][0]=author`,
         isAuth: true,
       }),

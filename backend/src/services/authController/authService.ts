@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import prisma from "../../models/prisma";
 import { generateToken } from "../../helpers";
 import createError from "http-errors";
+import { create } from "node:domain";
 
 class AuthService {
   async register(data: Register) {
@@ -40,8 +41,22 @@ class AuthService {
       page: Number(page),
     });
   }
+
+  async getOneUser(userId: string) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: Number(userId),
+      },
+    });
+
+    if (!user) {
+      throw createError.NotFound("User does not exist");
+    }
+
+    return user;
+  }
 }
 
 const authController = new AuthService();
 
-export const { register, login, all } = authController;
+export const { register, login, all, getOneUser } = authController;

@@ -8,6 +8,14 @@ export type User = {
   role: string;
   description?: string;
   jwt: string;
+  chats?: Chat[];
+  messages?: Message[];
+};
+
+type AdditionalData = {
+  status: boolean;
+  message: string;
+  meta: Meta;
 };
 
 export type UserJwt = {
@@ -16,14 +24,10 @@ export type UserJwt = {
   user: User;
 };
 
-export type ResponseUser = User & {
-  chats: Chat[];
-  messages: Message[];
+export type AllUsers = AdditionalData & {
+  data: User[];
 };
 
-export type AllUsers = {
-  status: boolean;
-  message: string;
-  data: User[];
-  meta: Meta;
+export type OneUser = AdditionalData & {
+  data: User;
 };

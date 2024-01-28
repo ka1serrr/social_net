@@ -38,7 +38,7 @@ class AuthController {
                 });
             }
         };
-        this.all = async (req, res, next) => {
+        this.all = async (req, res) => {
             try {
                 const { page, limit } = req.query;
                 const [users, meta] = await (0, services_1.all)(page, limit);
@@ -47,6 +47,23 @@ class AuthController {
                     message: "Successfully got data",
                     data: users,
                     meta: meta,
+                });
+            }
+            catch (e) {
+                res.status(500).json({
+                    message: "Internal server error",
+                    status: 500,
+                });
+            }
+        };
+        this.getOneUser = async (req, res) => {
+            try {
+                const { userId } = req.params;
+                const user = await (0, services_1.getOneUser)(userId);
+                res.status(200).json({
+                    status: true,
+                    message: "Successfully got data",
+                    data: user,
                 });
             }
             catch (e) {

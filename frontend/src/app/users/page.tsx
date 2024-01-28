@@ -1,8 +1,9 @@
 import React from "react";
 import { AuthProvider } from "@/app/providers";
 import { Metadata } from "next";
-import { Chat, CurrentUser } from "@/features/Chat";
+import { CurrentUser } from "@/features/Chat";
 import { UsersList } from "@/widgets/UsersList";
+import { UserProfile } from "@/widgets/UserProfile";
 
 export const metadata: Metadata = {
   title: "All Users",
@@ -23,7 +24,7 @@ export default function UsersPage() {
           <UsersList />
         </div>
         <div>
-          <Chat />
+          <UserProfile />
         </div>
       </div>
     </AuthProvider>

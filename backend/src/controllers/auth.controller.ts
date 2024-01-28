@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { register, login, all } from "../services";
+import { register, login, all, getOneUser } from "../services";
 
 class AuthController {
   register = async (req: Request, res: Response, next: NextFunction) => {
@@ -36,7 +36,7 @@ class AuthController {
     }
   };
 
-  all = async (req: Request, res: Response, next: NextFunction) => {
+  all = async (req: Request, res: Response) => {
     try {
       const { page, limit } = req.query;
       const [users, meta] = await all(page as string, limit as string);
@@ -45,6 +45,23 @@ class AuthController {
         message: "Successfully got data",
         data: users,
         meta: meta,
+      });
+    } catch (e) {
+      res.status(500).json({
+        message: "Internal server error",
+        status: 500,
+      });
+    }
+  };
+
+  getOneUser = async (req: Request, res: Response) => {
+    try {
+      const { userId } = req.params;
+      const user = await getOneUser(userId);
+      res.status(200).json({
+        status: true,
+        message: "Successfully got data",
+        data: user,
       });
     } catch (e) {
       res.status(500).json({

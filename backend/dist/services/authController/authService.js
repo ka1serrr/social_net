@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.all = exports.login = exports.register = void 0;
+exports.getOneUser = exports.all = exports.login = exports.register = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const prisma_1 = __importDefault(require("../../models/prisma"));
 const helpers_1 = require("../../helpers");
@@ -39,7 +39,18 @@ class AuthService {
             page: Number(page),
         });
     }
+    async getOneUser(userId) {
+        const user = await prisma_1.default.user.findUnique({
+            where: {
+                id: Number(userId),
+            },
+        });
+        if (!user) {
+            throw http_errors_1.default.NotFound("User does not exist");
+        }
+        return user;
+    }
 }
 const authController = new AuthService();
-exports.register = authController.register, exports.login = authController.login, exports.all = authController.all;
+exports.register = authController.register, exports.login = authController.login, exports.all = authController.all, exports.getOneUser = authController.getOneUser;
 //# sourceMappingURL=authService.js.map
