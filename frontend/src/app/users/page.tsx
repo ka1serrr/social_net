@@ -16,16 +16,14 @@ export default function UsersPage() {
       <div
         className='grid h-full'
         style={{
-          gridTemplateColumns: "1fr 3fr",
+          gridTemplateColumns: "1fr  3fr",
         }}
       >
-        <div className='border-r border-white-borders h-full overflow-auto'>
+        <div className='border-r border-white-borders h-full overflow-y-auto min-w-[341px]'>
           <CurrentUser />
           <UsersList />
         </div>
-        <div>
-          <UserProfile />
-        </div>
+        <UserProfile />
       </div>
     </AuthProvider>
   );

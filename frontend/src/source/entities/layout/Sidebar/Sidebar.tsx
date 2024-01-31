@@ -13,7 +13,7 @@ export const Sidebar = () => {
   const { status } = useAuth();
 
   return (
-    <aside className='border-r border-white-borders flex flex-col items-center gap-[50px] p-layout h-screen w-[77px]'>
+    <aside className='border-r border-white-borders flex flex-col items-center gap-[50px] p-layout h-screen min-w-[77px]'>
       {status == "authenticated" ? (
         <>
           <Link href='/'>

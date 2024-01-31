@@ -1,6 +1,10 @@
-import { Loader2 } from "lucide-react";
+import { Loader2, LucideProps } from "lucide-react";
 import { cn } from "@/source/shared";
+import { FC } from "react";
 
-export const Loader = ({ className }: { className?: string }) => {
-  return <Loader2 className={cn("animate-spin", className)} />;
+type Props = LucideProps;
+
+export const Loader: FC<Props> = (props) => {
+  const { className, size } = props;
+  return <Loader2 {...props} className={cn("animate-spin", className)} size={size} />;
 };

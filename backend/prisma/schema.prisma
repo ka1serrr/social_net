@@ -14,7 +14,7 @@ model User {
   username    String
   messages    Message[]
   chats       Chat[]
-  description String    @default("There is no description yet")
+  description String    @default("There is no description yet") @db.VarChar(200)
   role        Role      @default(USER)
 
   @@map("users")

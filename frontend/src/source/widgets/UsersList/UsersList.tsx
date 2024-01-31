@@ -21,7 +21,7 @@ export const UsersList = () => {
       <div>
         {isLoading ? (
           <div className='flex flex-col justify-center items-center'>
-            <Loader className='h-full' />
+            <Loader />
           </div>
         ) : users?.data ? (
           <>
